@@ -26,5 +26,6 @@ namespace SqlServerRestApiSample.Models
         }
     
         public virtual DbSet<Person> People { get; set; }
+        public virtual DbSet<Country> Countries { get; set; }
     }
 }

@@ -12,13 +12,9 @@ namespace SqlServerRestApiSample.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Person
+    public partial class Country
     {
         public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public Nullable<int> CountryId { get; set; }
-    
-        public virtual Country Country { get; set; }
+        public string Name { get; set; }
     }
 }
