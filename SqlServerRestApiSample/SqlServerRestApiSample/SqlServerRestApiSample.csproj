@@ -173,10 +173,32 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\CountriesController.cs" />
+    <Compile Include="Controllers\CountriesWithPeople\CountriesWithPeopleController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PeopleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CountriesWithPeople\CountriesWithPeopleSampleModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CountriesWithPeopleSampleModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CountriesWithPeople\CountriesWithPeopleSampleModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CountriesWithPeopleSampleModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CountriesWithPeople\CountriesWithPeopleSampleModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CountriesWithPeopleSampleModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CountriesWithPeople\CountryWithPeople.cs">
+      <DependentUpon>CountriesWithPeopleSampleModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CountriesWithPeople\PersonInCountry.cs">
+      <DependentUpon>CountriesWithPeopleSampleModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Country.cs">
       <DependentUpon>SampleModel.tt</DependentUpon>
@@ -212,6 +234,16 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Models\CountriesWithPeople\CountriesWithPeopleSampleModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CountriesWithPeopleSampleModel.edmx</DependentUpon>
+      <LastGenOutput>CountriesWithPeopleSampleModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\CountriesWithPeople\CountriesWithPeopleSampleModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CountriesWithPeopleSampleModel.edmx</DependentUpon>
+      <LastGenOutput>CountriesWithPeopleSampleModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Models\SampleModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>SampleModel.edmx</DependentUpon>
@@ -249,6 +281,13 @@
     </EntityDeploy>
     <Content Include="Models\SampleModel.edmx.diagram">
       <DependentUpon>SampleModel.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\CountriesWithPeople\CountriesWithPeopleSampleModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CountriesWithPeopleSampleModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\CountriesWithPeople\CountriesWithPeopleSampleModel.edmx.diagram">
+      <DependentUpon>CountriesWithPeopleSampleModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

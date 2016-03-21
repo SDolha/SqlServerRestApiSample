@@ -7,17 +7,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SqlServerRestApiSample.Models
+namespace SqlServerRestApiSample.Models.CountriesWithPeople
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Person
+    public partial class PersonInCountry
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-    
-        public virtual Country Country { get; set; }
     }
 }

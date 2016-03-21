@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="SampleDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="CountriesWithPeopleSampleDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Countries">
           <Key>
             <PropertyRef Name="Id" />
@@ -33,7 +33,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="SampleDatabaseModelStoreContainer">
+        <EntityContainer Name="CountriesWithPeopleSampleDatabaseModelStoreContainer">
           <EntitySet Name="Countries" EntityType="Self.Countries" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="People" EntityType="Self.People" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_People_Countries" Association="Self.FK_People_Countries">
@@ -41,69 +41,70 @@
             <End Role="People" EntitySet="People" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="SampleDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="SampleDatabaseEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Countries" EntityType="SampleDatabaseModel.Country" />
-          <EntitySet Name="People" EntityType="SampleDatabaseModel.Person" />
-          <AssociationSet Name="FK_People_Countries" Association="SampleDatabaseModel.FK_People_Countries">
-            <End Role="Country" EntitySet="Countries" />
-            <End Role="Person" EntitySet="People" />
-          </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="Country">
+      <Schema Namespace="CountriesWithPeopleSampleDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CountryWithPeople">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="People" Relationship="Self.FK_People_Countries" FromRole="Countries" ToRole="People" />
         </EntityType>
-        <EntityType Name="Person">
+        <EntityType Name="PersonInCountry">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Country" Relationship="SampleDatabaseModel.FK_People_Countries" FromRole="Person" ToRole="Country" />
+          <Property Name="FirstName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <Association Name="FK_People_Countries">
-          <End Type="SampleDatabaseModel.Country" Role="Country" Multiplicity="0..1" />
-          <End Type="SampleDatabaseModel.Person" Role="Person" Multiplicity="*" />
+          <End Role="Countries" Type="CountriesWithPeopleSampleDatabaseModel.CountryWithPeople" Multiplicity="0..1" />
+          <End Role="People" Type="CountriesWithPeopleSampleDatabaseModel.PersonInCountry" Multiplicity="*" />
         </Association>
+        <EntityContainer Name="CountriesWithPeopleSampleDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CountryWithPeoples" EntityType="CountriesWithPeopleSampleDatabaseModel.CountryWithPeople" />
+          <EntitySet Name="PersonInCountries" EntityType="CountriesWithPeopleSampleDatabaseModel.PersonInCountry" />
+          <AssociationSet Name="FK_People_Countries" Association="Self.FK_People_Countries">
+            <End Role="Countries" EntitySet="CountryWithPeoples" />
+            <End Role="People" EntitySet="PersonInCountries" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SampleDatabaseModelStoreContainer" CdmEntityContainer="SampleDatabaseEntities">
-          <EntitySetMapping Name="Countries">
-            <EntityTypeMapping TypeName="SampleDatabaseModel.Country">
+        <EntityContainerMapping StorageEntityContainer="CountriesWithPeopleSampleDatabaseModelStoreContainer" CdmEntityContainer="CountriesWithPeopleSampleDatabaseEntities">
+          <EntitySetMapping Name="CountryWithPeoples">
+            <EntityTypeMapping TypeName="CountriesWithPeopleSampleDatabaseModel.CountryWithPeople">
               <MappingFragment StoreEntitySet="Countries">
+                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="People">
-            <EntityTypeMapping TypeName="SampleDatabaseModel.Person">
+          <EntitySetMapping Name="PersonInCountries">
+            <EntityTypeMapping TypeName="CountriesWithPeopleSampleDatabaseModel.PersonInCountry">
               <MappingFragment StoreEntitySet="People">
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="FK_People_Countries" TypeName="SampleDatabaseModel.FK_People_Countries" StoreEntitySet="People">
-            <EndProperty Name="Person">
-              <ScalarProperty Name="Id" ColumnName="Id" />
-            </EndProperty>
-            <EndProperty Name="Country">
+          <AssociationSetMapping Name="FK_People_Countries" TypeName="CountriesWithPeopleSampleDatabaseModel.FK_People_Countries" StoreEntitySet="People">
+            <EndProperty Name="Countries">
               <ScalarProperty Name="Id" ColumnName="CountryId" />
             </EndProperty>
-            <Condition ColumnName="CountryId" IsNull="false" />
+            <EndProperty Name="People">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+            <Condition IsNull="false" ColumnName="CountryId" />
           </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
@@ -120,7 +121,7 @@
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="true" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="false" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>

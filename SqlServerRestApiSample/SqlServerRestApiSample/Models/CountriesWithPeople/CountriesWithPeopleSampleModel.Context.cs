@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SqlServerRestApiSample.Models
+namespace SqlServerRestApiSample.Models.CountriesWithPeople
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class SampleDatabaseEntities : DbContext
+    public partial class CountriesWithPeopleSampleDatabaseEntities : DbContext
     {
-        public SampleDatabaseEntities()
-            : base("name=SampleDatabaseEntities")
+        public CountriesWithPeopleSampleDatabaseEntities()
+            : base("name=CountriesWithPeopleSampleDatabaseEntities")
         {
         }
     
@@ -25,7 +25,7 @@ namespace SqlServerRestApiSample.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Country> Countries { get; set; }
-        public virtual DbSet<Person> People { get; set; }
+        public virtual DbSet<CountryWithPeople> CountryWithPeoples { get; set; }
+        public virtual DbSet<PersonInCountry> PersonInCountries { get; set; }
     }
 }
